@@ -9,16 +9,25 @@
 /* styles */
 
 /* Current application customs */
-html {
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    --text-color: #333;
+    --active-tab-color: #764ba2;
+}
 
+html {
+    --rootbar-height: 72px;
 }
 
 body {
-    --common-bg-color: #FFFFFF;
+    --common-bg-color: #f0f2f5; /* Light grey background for better contrast with glass */
 
     font-family: 'Noto Sans KR';
-
-
+    background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%); /* Subtle gradient bg */
+    min-height: 100vh;
 
     /* adaptive color (light/common) */
 }
@@ -26,18 +35,82 @@ body {
 body[data-dark-mode="1"] {
 
     /* adaptive color (dark) */
-
+    --common-bg-color: #1a1a1a;
+    background: #1a1a1a;
+    --glass-bg: rgba(30, 30, 30, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-color: #eee;
+    --active-tab-color: #a586d3;
 }
 
-main { font-family: 'Noto Sans KR'; }
+/* Language Visibility */
+body.lang-ko .lang-en { display: none !important; }
+body.lang-en .lang-ko { display: none !important; }
+
+main { font-family: 'Noto Sans KR'; color: var(--text-color); }
 main button, main input, main textarea { font-family: 'Noto Sans KR'; }
-
-
 
 
 /* override EstreUI */
 
+/* Modern App Bar (Fixed Top) */
+#fixedTop #appbar {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+}
+header#fixedTop > section#appbar > div.container > article:not(.appbarCenter) {
+    width: 0%;
+}
 
+/* Modern Tab Bar (Fixed Bottom) */
+#fixedBottom {
+    background: transparent !important;
+    pointer-events: none; /* Let clicks pass through empty areas */
+}
+
+#fixedBottom .tabsbar {
+    pointer-events: auto;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 32px;
+    height: calc(var(--rootbar-height) - 24px);
+    margin: 8px 12px; /* Floating effect */
+    margin-bottom: auto;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+    border: 1px solid var(--glass-border);
+    border-bottom: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+}
+
+#fixedBottom .tabsbar button {
+    background: transparent;
+    border: none;
+    color: #999;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    flex: 1;
+    border-radius: 16px;
+    margin: 0 6px;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+#fixedBottom .tabsbar button:active {
+    transform: scale(0.95);
+}
+
+#fixedBottom .tabsbar button[data-active="1"] {
+    color: var(--active-tab-color);
+    background: rgba(118, 75, 162, 0.08);
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(118, 75, 162, 0.15);
+}
 
 /* custom element styles */
 

@@ -1,23 +1,208 @@
-        <!-- Main tabs content - must be match id of button on fixedBottom navs -->
-        <section id="home" class="root_tab_content" data-static="1" data-on-top="1">
-            <div class="container vfv_scroll" data-container-id="root" data-static="1" data-title="Home">
-                <article id="app" class="constraint" data-article-id="main" data-static="1" data-title="Home">
+        <!-- Intro Section -->
+        <section id="intro" class="root_tab_content home" data-static="1" data-on-top="1">
+            <div class="container vfv_scroll" data-container-id="root" data-static="1" data-title="Intro">
+                <article id="main" class="constraint" data-article-id="main" data-static="1" data-title="Intro">
+                    <div class="hero_section" style="text-align: center; padding: 40px 20px; ">
+                        <img src="./images/EstreUI-flatter-192x192.png" style="width: 120px; height: 120px; margin-bottom: 20px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));">
+                        <h1 style="font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Estre UI</h1>
+                        <p style="font-size: 1.2rem; color: #666; margin-bottom: 30px;">
+                            <span class="lang-ko">클래식 웹과 네이티브 앱의 만남</span>
+                            <span class="lang-en">Bridging Classic Web & Native Apps</span>
+                        </p>
+                        <div class="card_glass" style="padding: 20px; border-radius: 16px; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3);">
+                            <h3 style="margin-bottom: 10px;">
+                                <span class="lang-ko">Rimwork란?</span>
+                                <span class="lang-en">What is Rimwork?</span>
+                            </h3>
+                            <p style="line-height: 1.6;">
+                                <span class="lang-ko">Estre UI는 단순한 라이브러리가 아닌 "Runnable Frame"입니다. 필수적인 구조(Rim)와 라이프사이클을 제공하여, 여러분이 선호하는 도구로 내용을 채울 수 있게 합니다.</span>
+                                <span class="lang-en">Estre UI is a "Runnable Frame" that provides the essential structure (Rim) and lifecycle management, allowing you to fill in the content with your preferred tools.</span>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div style="padding: 20px;">
+                        <h2 style="margin-bottom: 20px;">
+                            <span class="lang-ko">주요 특징</span>
+                            <span class="lang-en">Key Features</span>
+                        </h2>
+                        <div class="grid_2_col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div class="feature_card card_glass" style="padding: 15px; border-radius: 12px; background: rgba(255,255,255,0.5);">
+                                <b>MVC Pattern</b>
+                                <p style="font-size: 0.9rem; color: #555;">
+                                    <span class="lang-ko">구조적인 관심사 분리</span>
+                                    <span class="lang-en">Structured separation of concerns</span>
+                                </p>
+                            </div>
+                            <div class="feature_card card_glass" style="padding: 15px; border-radius: 12px; background: rgba(255,255,255,0.5);">
+                                <b>Lifecycle</b>
+                                <p style="font-size: 0.9rem; color: #555;">
+                                    <span class="lang-ko">네이티브 앱과 유사한 라이프사이클</span>
+                                    <span class="lang-en">Native-like page lifecycle</span>
+                                </p>
+                            </div>
+                            <div class="feature_card card_glass" style="padding: 15px; border-radius: 12px; background: rgba(255,255,255,0.5);">
+                                <b>Native-like UI</b>
+                                <p style="font-size: 0.9rem; color: #555;">
+                                    <span class="lang-ko">부드러운 전환과 터치 인터랙션</span>
+                                    <span class="lang-en">Smooth transitions & touch interactions</span>
+                                </p>
+                            </div>
+                            <div class="feature_card card_glass" style="padding: 15px; border-radius: 12px; background: rgba(255,255,255,0.5);">
+                                <b>jQuery 4.0</b>
+                                <p style="font-size: 0.9rem; color: #555;">
+                                    <span class="lang-ko">최신 jQuery 완벽 호환</span>
+                                    <span class="lang-en">Fully compatible with latest jQuery</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </article>
             </div>
         </section>
-        <!-- For access to additional root component(out of tabs) -->
-        <section id="more" class="modal fit bottom right stickyRootbar" data-static="1">
-            <div class="container vfv_scroll" data-container-id="root" data-static="1">
-                <article class="session_manager session_group_holder" data-article-id="main" data-static="1" style="text-align: left; ">
-                    <div class="linear_block hide_block_when_empty_list sessions_holder fixed_pages">
-                        <label>Fixed activities</label>
-                        <div class="line_block on_empty">No any activities</div>
-                        <ul class="session_list"></ul>
+
+        <!-- Guide Section -->
+        <section id="guide" class="root_tab_content" data-static="1">
+            <div class="container vfv_scroll" data-container-id="root" data-static="1" data-title="Guide">
+                <article id="main" class="constraint" data-article-id="main" data-static="1" data-title="Guide">
+                    <div style="padding: 20px;">
+                        <h2>
+                            <span class="lang-ko">시작하기</span>
+                            <span class="lang-en">Getting Started</span>
+                        </h2>
+                        
+                        <div class="step_card" style="margin-bottom: 30px;">
+                            <h3>1. Installation</h3>
+                            <p>
+                                <span class="lang-ko">리포지터리를 클론하여 시작하세요.</span>
+                                <span class="lang-en">Start by cloning the repository.</span>
+                            </p>
+                            <pre style="background: #333; color: #fff; padding: 15px; border-radius: 8px; overflow-x: auto;"><code>git clone https://github.com/SoliEstre/EstreUI.js.git</code></pre>
+                        </div>
+
+                        <div class="step_card" style="margin-bottom: 30px;">
+                            <h3>2. File Structure</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px;">
+                                    <code>index.html</code>
+                                    <div style="font-size: 0.9rem; color: #666; margin-top: 4px;">
+                                        <span class="lang-ko">메인 진입점 (The Rim)</span>
+                                        <span class="lang-en">The main entry point (The Rim)</span>
+                                    </div>
+                                </li>
+                                <li style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px;">
+                                    <code>scripts/main.js</code>
+                                    <div style="font-size: 0.9rem; color: #666; margin-top: 4px;">
+                                        <span class="lang-ko">애플리케이션 설정 및 로직</span>
+                                        <span class="lang-en">Application configuration & logic</span>
+                                    </div>
+                                </li>
+                                <li style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px;">
+                                    <code>styles/main.css</code>
+                                    <div style="font-size: 0.9rem; color: #666; margin-top: 4px;">
+                                        <span class="lang-ko">커스텀 스타일</span>
+                                        <span class="lang-en">Custom styles</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="step_card" style="margin-bottom: 30px;">
+                            <h3>3. Core Concepts</h3>
+                            <div style="margin-bottom: 15px;">
+                                <h4>Page System</h4>
+                                <p style="font-size: 0.95rem;">
+                                    <span class="lang-ko">Component > Container > Article 계층 구조로 콘텐츠를 관리합니다.</span>
+                                    <span class="lang-en">Manages content in a hierarchy of Component > Container > Article.</span>
+                                </p>
+                            </div>
+                            <div>
+                                <h4>Lifecycle</h4>
+                                <p style="font-size: 0.95rem;">
+                                    <span class="lang-ko">onBring -> onShow -> onHide -> onClose 순서로 페이지 상태를 관리합니다.</span>
+                                    <span class="lang-en">Manages page state in the order of onBring -> onShow -> onHide -> onClose.</span>
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="linear_block hide_block_when_empty_list sessions_holder opened_pages">
-                        <label>Instant activities</label>
-                        <div class="line_block on_empty">No any activities</div>
-                        <ul class="session_list" description="Don't insert anything. has to be managed automatically."></ul>
+                </article>
+            </div>
+        </section>
+
+        <!-- Demo Section (Placeholder) -->
+        <section id="demo" class="root_tab_content" data-static="1">
+            <div class="container vfv_scroll" data-container-id="root" data-static="1" data-title="Demo">
+                <article id="main" class="constraint" data-article-id="main" data-static="1" data-title="Demo">
+                    <div style="padding: 20px;">
+                        <h2>
+                            <span class="lang-ko">기능 데모</span>
+                            <span class="lang-en">Feature Demos</span>
+                        </h2>
+                        
+                        <div class="demo_card card_glass" style="padding: 20px; margin-bottom: 20px; border-radius: 16px; background: rgba(255,255,255,0.5);">
+                            <h3>Dialogs</h3>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+                                <button class="tp_btn" onclick="estreAlert('Hello Estre UI!')">Alert</button>
+                                <button class="tp_btn" onclick="estreConfirm('Are you sure?', (res) => { if(res) estreToast('Confirmed!'); })">Confirm</button>
+                                <button class="tp_btn" onclick="estrePrompt('What is your name?', (res) => { if(res) estreToast('Hello ' + res); })">Prompt</button>
+                            </div>
+                        </div>
+
+                        <div class="demo_card card_glass" style="padding: 20px; margin-bottom: 20px; border-radius: 16px; background: rgba(255,255,255,0.5);">
+                            <h3>Toasts</h3>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+                                <button class="tp_btn" onclick="estreToast('This is a toast message')">Toast</button>
+                                <button class="tp_btn" onclick="note('Android style toast')">Note</button>
+                            </div>
+                        </div>
+                        
+                        <div class="demo_card card_glass" style="padding: 20px; margin-bottom: 20px; border-radius: 16px; background: rgba(255,255,255,0.5);">
+                            <h3>Loading</h3>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+                                <button class="tp_btn" onclick="wait(); setTimeout(go, 2000);">Wait (2s)</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Links Section (Placeholder) -->
+        <section id="links" class="root_tab_content" data-static="1">
+            <div class="container vfv_scroll" data-container-id="root" data-static="1" data-title="Links">
+                <article id="main" class="constraint" data-article-id="main" data-static="1" data-title="Links">
+                    <div style="padding: 20px;">
+                        <h2>
+                            <span class="lang-ko">관련 링크</span>
+                            <span class="lang-en">Useful Links</span>
+                        </h2>
+                        
+                        <div class="grid_2_col" style="display: grid; grid-template-columns: 1fr; gap: 15px;">
+                            <div class="link_card card_glass" onclick="window.open('https://github.com/SoliEstre/EstreUI.js')" style="padding: 20px; border-radius: 16px; background: rgba(255,255,255,0.6); cursor: pointer; transition: transform 0.2s;">
+                                <h3 style="margin-bottom: 5px;">Estre UI GitHub</h3>
+                                <p style="font-size: 0.9rem; color: #666;">Official Repository</p>
+                            </div>
+                            
+                            <div class="link_card card_glass" onclick="window.open('https://estreui.mpsolutions.kr/App1')" style="padding: 20px; border-radius: 16px; background: rgba(255,255,255,0.6); cursor: pointer; transition: transform 0.2s;">
+                                <h3 style="margin-bottom: 5px;">App1 Example</h3>
+                                <p style="font-size: 0.9rem; color: #666;">Basic Implementation</p>
+                            </div>
+
+                            <div class="link_card card_glass" onclick="window.open('https://estreui.mpsolutions.kr/APT')" style="padding: 20px; border-radius: 16px; background: rgba(255,255,255,0.6); cursor: pointer; transition: transform 0.2s;">
+                                <h3 style="margin-bottom: 5px;">APT Demo</h3>
+                                <p style="font-size: 0.9rem; color: #666;">Modern UI Demo</p>
+                            </div>
+
+                            <div class="link_card card_glass" onclick="window.open('https://class.mangoedu.co.kr')" style="padding: 20px; border-radius: 16px; background: rgba(255,255,255,0.6); cursor: pointer; transition: transform 0.2s;">
+                                <h3 style="margin-bottom: 5px;">Mango Class</h3>
+                                <p style="font-size: 0.9rem; color: #666;">Live Education App</p>
+                            </div>
+
+                            <div class="link_card card_glass" onclick="window.open('https://gmdg.nm3.kr')" style="padding: 20px; border-radius: 16px; background: rgba(255,255,255,0.6); cursor: pointer; transition: transform 0.2s;">
+                                <h3 style="margin-bottom: 5px;">GMDG</h3>
+                                <p style="font-size: 0.9rem; color: #666;">Braille Viewer Utility</p>
+                            </div>
+                        </div>
                     </div>
                 </article>
             </div>

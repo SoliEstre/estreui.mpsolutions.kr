@@ -8,6 +8,28 @@
 
 
 // Customize lifecycle actions for handles(component/container/article) on own pages
+
+class LanguageManager {
+    constructor() {
+        this.lang = localStorage.getItem('app_lang') || 'ko';
+        this.applyLang();
+        
+        // Bind toggle buttons
+        $(document).on('click', '#langToggleBtn, #langToggleBtn2', () => this.toggleLang());
+    }
+
+    toggleLang() {
+        this.lang = this.lang === 'ko' ? 'en' : 'ko';
+        localStorage.setItem('app_lang', this.lang);
+        this.applyLang();
+    }
+
+    applyLang() {
+        document.body.classList.remove('lang-ko', 'lang-en');
+        document.body.classList.add(`lang-${this.lang}`);
+    }
+}
+
 class AppPagesProvider {
 
     // Register my own external PID (page alias)
@@ -16,7 +38,10 @@ class AppPagesProvider {
 
         //"own shorter id": "PID",
 
-        "home": "&m=home",
+        "intro": "&m=intro",
+        "guide": "&m=guide",
+        "demo": "&m=demo",
+        "links": "&m=links",
 
     }; }
 
@@ -34,7 +59,10 @@ class AppPagesProvider {
     //declare handler of pages
 
     //"own shorter id" = page handler implementation class from extends EstrePageHandler or empty class(function type constructor)
-    "home" = class extends EstrePageHandler {};
+    "intro" = class extends EstrePageHandler {};
+    "guide" = class extends EstrePageHandler {};
+    "demo" = class extends EstrePageHandler {};
+    "links" = class extends EstrePageHandler {};
 
 }
 
@@ -384,6 +412,7 @@ class AppActionManager {
 
 
 // setup instances
+const languageManager = new LanguageManager();
 const appPageManager = new AppPageManager();
 
 const appActionManager = new AppActionManager(appPageManager);
@@ -410,7 +439,7 @@ $(document).ready((e) => setTimeout(_ => {
 
     appActionManager.onReadyEstreUi().then(handled => {
         if (!handled) {
-            appPageManager.bringPage("home");
+            appPageManager.bringPage("intro"); // Start with 'intro' tab
 
             postQueue(_ => estreUi.checkOnReady());
         }
