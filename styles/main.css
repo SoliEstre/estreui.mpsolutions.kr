@@ -20,6 +20,8 @@
 
 html {
     --rootbar-height: 72px;
+
+    --basic-backdrop-blur-strength: 1px;
 }
 
 body {

@@ -1,7 +1,7 @@
         <!-- Intro Section -->
         <section id="intro" class="root_tab_content home" data-static="1" data-on-top="1">
             <div class="container vfv_scroll" data-container-id="root" data-static="1" data-title="Intro">
-                <article id="main" class="constraint" data-article-id="main" data-static="1" data-title="Intro">
+                <article id="main" class="fwvs" data-article-id="main" data-static="1" data-title="Intro">
                     <div class="hero_section" style="text-align: center; padding: 40px 20px; ">
                         <img src="./images/EstreUI-flatter-192x192.png" style="width: 120px; height: 120px; margin-bottom: 20px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));">
                         <h1 style="font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Estre UI</h1>
@@ -62,68 +62,434 @@
         </section>
 
         <!-- Guide Section -->
+        <!-- Guide Section -->
         <section id="guide" class="root_tab_content" data-static="1">
             <div class="container vfv_scroll" data-container-id="root" data-static="1" data-title="Guide">
-                <article id="main" class="constraint" data-article-id="main" data-static="1" data-title="Guide">
-                    <div style="padding: 20px;">
-                        <h2>
-                            <span class="lang-ko">시작하기</span>
-                            <span class="lang-en">Getting Started</span>
-                        </h2>
-                        
-                        <div class="step_card" style="margin-bottom: 30px;">
-                            <h3>1. Installation</h3>
-                            <p>
-                                <span class="lang-ko">리포지터리를 클론하여 시작하세요.</span>
-                                <span class="lang-en">Start by cloning the repository.</span>
-                            </p>
-                            <pre style="background: #333; color: #fff; padding: 15px; border-radius: 8px; overflow-x: auto;"><code>git clone https://github.com/SoliEstre/EstreUI.js.git</code></pre>
-                        </div>
+                <article id="main" class="fwvs" data-article-id="main" data-static="1" data-title="Guide">
+                    <local-style>
+                        ## h2 { margin-top: 42px; }
 
+
+                        /* Local style for lifecycle visualization */
+                        ## .lifecycle_list { position: relative; padding: 0; list-style: none; margin-left: 20px; border-left: 2px solid #ccc; }
+                        ## .lifecycle_item { 
+                            position: relative; 
+                            margin-bottom: 0; 
+                            padding: 0; /* Layout wrapper only */
+                        }
+                        
+                        /* Content Card - Moves on Hover */
+                        ## .lifecycle_content {
+                            position: relative; 
+                            padding: 10px 15px; 
+                            border-radius: 0 8px 8px 0;
+                            transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+                            margin-right: 50px; /* Space for the loop bracket */
+                            background-color: #f9f9f9; /* Default backup */
+                        }
+                        ## .lifecycle_item:hover .lifecycle_content { transform: translateX(5px); }
+                        
+                        /* Stem Connector - Attached to Content (moves with it) */
+                        ## .lifecycle_content::before {
+                            content: ''; position: absolute; left: -20px; top: 50%; width: 20px; height: 2px; border-top: 2px solid #ccc;
+                        }
+
+                        /* Loop Visualization (Static Rail on Item) */
+                        ## .lifecycle_item.loop_start::after {
+                            content: ''; position: absolute; right: 20px; width: 30px; 
+                            top: 50%; bottom: 0; /* Center straight down */
+                            border-top: 2px dashed #666; border-right: 2px dashed #666;
+                            border-top-right-radius: 12px;
+                            pointer-events: none;
+                        }
+                        ## .lifecycle_item.loop_conn::after {
+                            content: ''; position: absolute; right: 20px; width: 30px; 
+                            top: 0; bottom: 0; /* Full height connection */
+                            border-right: 2px dashed #666;
+                            pointer-events: none;
+                        }
+                        ## .lifecycle_item.loop_end::after {
+                            content: ''; position: absolute; right: 20px; width: 30px; 
+                            top: 0; bottom: 50%; /* Top straight to center */
+                            border-bottom: 2px dashed #666; border-right: 2px dashed #666;
+                            border-bottom-right-radius: 12px;
+                            pointer-events: none;
+                        }
+
+                        /* Arrow Head on loop_start (Back into Show) */
+                        ## .loop_head_marker {
+                            position: absolute; right: 48px; top: 50%; /* Slightly overlap for seamless look */
+                            width: 0; height: 0;
+                            border-top: 6px solid transparent; border-bottom: 6px solid transparent;
+                            border-right: 9px solid #666; /* Matching color, slightly larger */
+                            transform: translateY(-50%);
+                            pointer-events: none;
+                            z-index: 10; /* Ensure on top of content */
+                        }
+                        
+                        /* Loop Label code text */
+                        ## .loop_label_marker {
+                            position: absolute; right: 0; top: 100%; /* Centered between Focus and Blur (approx middle of loop) */
+                            transform: translate(50%, -50%) rotate(90deg);
+                            transform-origin: center center;
+                            font-size: 0.75rem; color: #555; 
+                            background-color: #fcfcfc; /* Match bg to mask line */
+                            padding: 2px 8px;
+                            white-space: nowrap; border-radius: 4px;
+                            pointer-events: none;
+                            z-index: 11;
+                            font-family: monospace;
+                        }
+
+                        /* Specific Colors - Applied to Content */
+                        ## .lc_bring { background-color: #ECEFF1; border-left: 4px solid #B0BEC5; }
+                        ## .lc_open { background-color: #CFD8DC; border-left: 4px solid #90A4AE; }
+                        ## .lc_show { background-color: #B0BEC5; border-left: 4px solid #78909C; }
+                        ## .lc_focus { background-color: #90A4AE; border-left: 4px solid #607D8B; }
+
+                        ## .lc_blur { background-color: #FFE0B2; border-left: 4px solid #FF9800; }
+                        ## .lc_hide { background-color: #FFF3E0; border-left: 4px solid #FFB74D; }
+                        ## .lc_close { background-color: #FFF8E1; border-left: 4px solid #FFCC80; }
+                        ## .lc_release { background-color: #FFFAFA; border-left: 4px solid #FFE0B2; }
+
+                        ## .lifecycle_content code {
+                            background: #444; color: #81D4FA; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-family: monospace;
+                        }
+                    </local-style>
+                    <div style="padding: 20px;">
+                        
+                        <!-- 1. Introduction -->
                         <div class="step_card" style="margin-bottom: 30px;">
-                            <h3>2. File Structure</h3>
-                            <ul style="list-style: none; padding: 0;">
-                                <li style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px;">
-                                    <code>index.html</code>
-                                    <div style="font-size: 0.9rem; color: #666; margin-top: 4px;">
-                                        <span class="lang-ko">메인 진입점 (The Rim)</span>
-                                        <span class="lang-en">The main entry point (The Rim)</span>
-                                    </div>
+                            <h2 style="margin-top: 0; ">
+                                <span class="lang-ko">소개</span>
+                                <span class="lang-en">Introduction</span>
+                            </h2>
+                            <p>
+                                <span class="lang-ko">EstreUI는 "Rimwork" (Runnable Frame)입니다. 클래식 웹 개발(jQuery 등)과 현대적인 네이티브 앱 경험 사이의 가교 역할을 합니다.</span>
+                                <span class="lang-en">EstreUI is a "Rimwork" (Runnable Frame). It bridges the gap between classic web development (jQuery, etc.) and modern native app experiences.</span>
+                            </p>
+                            
+                            <h4 style="margin-top: 15px;">
+                                <span class="lang-ko">주요 특징</span>
+                                <span class="lang-en">Key Features</span>
+                            </h4>
+                            <ul style="list-style: disc; margin-left: 0; line-height: 1.6;">
+                                <li>
+                                    <b>MVC Pattern</b>: 
+                                    <span class="lang-ko">구조적인 관심사 분리.</span>
+                                    <span class="lang-en">Structured separation of concerns.</span>
                                 </li>
-                                <li style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px;">
-                                    <code>scripts/main.js</code>
-                                    <div style="font-size: 0.9rem; color: #666; margin-top: 4px;">
-                                        <span class="lang-ko">애플리케이션 설정 및 로직</span>
-                                        <span class="lang-en">Application configuration & logic</span>
-                                    </div>
+                                <li>
+                                    <b>Lifecycle</b>: 
+                                    <span class="lang-ko">네이티브 앱과 유사한 페이지 생명주기 관리.</span>
+                                    <span class="lang-en">Native-like page lifecycle management.</span>
                                 </li>
-                                <li style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px;">
-                                    <code>styles/main.css</code>
-                                    <div style="font-size: 0.9rem; color: #666; margin-top: 4px;">
-                                        <span class="lang-ko">커스텀 스타일</span>
-                                        <span class="lang-en">Custom styles</span>
-                                    </div>
+                                <li>
+                                    <b>Zero Build Step</b>: 
+                                    <span class="lang-ko">빌드 과정 없이 저장 후 즉시 실행.</span>
+                                    <span class="lang-en">Run immediately after saving without any build process.</span>
+                                </li>
+                                <li>
+                                    <b>PWA & Hybrid Ready</b>: 
+                                    <span class="lang-ko">설치형 웹앱 및 스토어 배포 지원.</span>
+                                    <span class="lang-en">Supports installable web apps and store deployment.</span>
                                 </li>
                             </ul>
                         </div>
 
+                        <!-- 2. Getting Started -->
                         <div class="step_card" style="margin-bottom: 30px;">
-                            <h3>3. Core Concepts</h3>
-                            <div style="margin-bottom: 15px;">
-                                <h4>Page System</h4>
-                                <p style="font-size: 0.95rem;">
-                                    <span class="lang-ko">Component > Container > Article 계층 구조로 콘텐츠를 관리합니다.</span>
-                                    <span class="lang-en">Manages content in a hierarchy of Component > Container > Article.</span>
-                                </p>
-                            </div>
-                            <div>
-                                <h4>Lifecycle</h4>
-                                <p style="font-size: 0.95rem;">
-                                    <span class="lang-ko">onBring -> onShow -> onHide -> onClose 순서로 페이지 상태를 관리합니다.</span>
-                                    <span class="lang-en">Manages page state in the order of onBring -> onShow -> onHide -> onClose.</span>
+                            <h2>
+                                <span class="lang-ko">시작하기</span>
+                                <span class="lang-en">Getting Started</span>
+                            </h2>
+                            
+                            <h3>Installation</h3>
+                            <pre style="background: #333; color: #fff; padding: 15px; border-radius: 8px; overflow-x: auto; margin-bottom: 15px;"><code>npm create estreui@latest
+# or
+git clone https://github.com/SoliEstre/EstreUI.js.git</code></pre>
+
+                            <h3>File Structure</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px;">
+                                    <code>index.html</code>
+                                    <div style="font-size: 0.9rem; color: #666; margin-top: 4px;">
+                                        <span class="lang-ko">메인 진입점. "Rim" 역할을 합니다.</span>
+                                        <span class="lang-en">Main entry point. Acts as the "Rim".</span>
+                                    </div>
+                                </li>
+                                <li style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px;">
+                                    <code>scripts/estreUi.js</code> & <code>scripts/main.js</code>
+                                    <div style="font-size: 0.9rem; color: #666; margin-top: 4px;">
+                                        <span class="lang-ko">프레임워크 코어 및 애플리케이션 설정/로직.</span>
+                                        <span class="lang-en">Framework core and application config/logic.</span>
+                                    </div>
+                                </li>
+                                <li style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px;">
+                                    <code>exported htmls</code> (fixedTop.html, etc.)
+                                    <div style="font-size: 0.9rem; color: #666; margin-top: 4px;">
+                                        <span class="lang-ko">레이아웃 및 섹션별 분리된 HTML 파일들.</span>
+                                        <span class="lang-en">Separate HTML files for layout and sections.</span>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <div style="background: rgba(255, 200, 0, 0.15); border-left: 4px solid #ffcc00; padding: 10px; border-radius: 4px; margin-top: 15px;">
+                                <b>
+                                    <span class="lang-ko">⚠️ 중요: PWA 캐시 관리</span>
+                                    <span class="lang-en">⚠️ Important: PWA Cache Management</span>
+                                </b>
+                                <p style="font-size: 0.9rem; margin-top: 5px;">
+                                    <span class="lang-ko">PWA가 기본 구현되어 있으므로, 코드를 수정하고 배포할 때 반드시 <code>serviceWorker.js</code> 내의 캐시 버전을 수동으로 업데이트해야 변경사항이 반영됩니다.</span>
+                                    <span class="lang-en">Since there is no build step, you MUST manually update the cache version in <code>serviceWorker.js</code> when deploying changes to ensure users receive the updates.</span>
                                 </p>
                             </div>
                         </div>
+
+                        <!-- 3. Core Concepts -->
+                        <div class="step_card" style="margin-bottom: 30px;">
+                            <h2>
+                                <span class="lang-ko">핵심 개념</span>
+                                <span class="lang-en">Core Concepts</span>
+                            </h2>
+                            
+                            <h3 style="margin-top: 20px;">Page System</h3>
+                            <p>
+                                <span class="lang-ko">EstreUI의 페이지는 웹 페이지보다는 <b>Android Activity</b>나 <b>Fragment</b>에 가깝습니다.</span>
+                                <span class="lang-en">EstreUI pages are closer to <b>Android Activities</b> or <b>Fragments</b> than traditional web pages.</span>
+                            </p>
+                            <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px;">
+                                <b>Component (Section)</b>
+                                <span style="display:block; font-size: 0.9rem; color: #555;">(Screen Group, Bottom Tab) PID Prefix: <code>=</code>, Default ID: home</span>
+                            </div>
+                            <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px; margin-left: 20px;">
+                                <b>Container</b>
+                                <span style="display:block; font-size: 0.9rem; color: #555;">(Screen Feature) PID Prefix: <code>#</code>, Default ID: root</span>
+                            </div>
+                            <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px; margin-left: 40px;">
+                                <b>Article</b>
+                                <span style="display:block; font-size: 0.9rem; color: #555;">(Content View) PID Prefix: <code>@</code>, Default ID: main</span>
+                            </div>
+
+                            <h3 style="margin-top: 20px;">PID (Page ID)</h3>
+                            <p>
+                                <span class="lang-ko">URL 라우팅 대신 <b>PID</b>와 <b>Intent</b>를 사용합니다. 단순히 페이지를 이동하는 것이 아니라, 다음 활동(Activity)을 시작하는 개념입니다.</span>
+                                <span class="lang-en">It uses <b>PID</b> and <b>Intent</b> instead of URL routing. It's not just navigating; it's starting the next Activity.</span>
+                            </p>
+                            <code style="display:block; background: #eee; padding: 8px; margin-top: 5px; border-radius: 4px;">$s&m=home#root@main</code>
+                            <p style="font-size: 0.9rem; color: #666; margin-top: 8px; background-color: #e3f2fd; padding: 10px; border-radius: 4px; border-left: 3px solid #2196f3;">
+                                <b>Tip:</b> <span class="lang-ko">콘솔에서 <code>pageManager.pages</code>를 호출하면 등록된 페이지(호출 가능한 페이지) 및 PID를 확인할 수 있습니다.</span>
+                                <span class="lang-en">Check registered pages (callable pages) and PIDs by calling <code>pageManager.pages</code> in the console.</span>
+                            </p>
+
+                            <h3 style="margin-top: 20px;">Lifecycle</h3>
+                            <div style="position: relative;">
+                                <ul class="lifecycle_list">
+                                    <li class="lifecycle_item">
+                                        <div class="lifecycle_content lc_bring">
+                                            <code>onBring</code>
+                                            <div style="font-size: 0.9rem; margin-top: 4px;">
+                                                <span class="lang-ko">준비, DOM 생성 등 (Create)</span>
+                                                <span class="lang-en">Preparation, DOM creation, etc. (Create)</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="lifecycle_item">
+                                        <div class="lifecycle_content lc_open">
+                                            <code>onOpen</code>
+                                            <div style="font-size: 0.9rem; margin-top: 4px;">
+                                                <span class="lang-ko">DOM 준비 이후 초기화 (ViewCreated)</span>
+                                                <span class="lang-en">Initialized after DOM ready (ViewCreated)</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- Loop Start -->
+                                    <li class="lifecycle_item loop_start">
+                                        <div class="loop_head_marker"></div>
+                                        <div class="lifecycle_content lc_show">
+                                            <code>onShow</code>
+                                            <div style="font-size: 0.9rem; margin-top: 4px;">
+                                                <span class="lang-ko">화면에 표시됨 (Start)</span>
+                                                <span class="lang-en">Visible on screen (Start)</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- Loop Middle -->
+                                    <li class="lifecycle_item loop_conn">
+                                        <div class="loop_label_marker">
+                                            pageManager.onShow(pid) <span style="font-family: sans-serif; color: #999; font-size: 0.9em;">or</span> handle.show()
+                                        </div>
+                                        <div class="lifecycle_content lc_focus">
+                                            <code>onFocus</code>*
+                                            <div style="font-size: 0.9rem; margin-top: 4px;">
+                                                <span class="lang-ko">커서/입력 활성화 (Resume)</span>
+                                                <span class="lang-en">Input/Cursor active (Resume)</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="lifecycle_item loop_conn">
+                                        <div class="lifecycle_content lc_blur">
+                                            <code>onBlur</code>*
+                                            <div style="font-size: 0.9rem; margin-top: 4px;">
+                                                <span class="lang-ko">커서/입력 비활성화 (Pause)</span>
+                                                <span class="lang-en">Input/Cursor inactive (Pause)</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- Loop End -->
+                                    <li class="lifecycle_item loop_end">
+                                        <div class="lifecycle_content lc_hide">
+                                            <code>onHide</code>
+                                            <div style="font-size: 0.9rem; margin-top: 4px;">
+                                                <span class="lang-ko">화면에서 숨겨짐 (Stop)</span>
+                                                <span class="lang-en">Hidden from screen (Stop)</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="lifecycle_item">
+                                        <div class="lifecycle_content lc_close">
+                                            <code>onClose</code>
+                                            <div style="font-size: 0.9rem; margin-top: 4px;">
+                                                <span class="lang-ko">DOM 제거 전 정리 (DestroyView)</span>
+                                                <span class="lang-en">Cleanup before DOM removal (DestroyView)</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="lifecycle_item">
+                                        <div class="lifecycle_content lc_release">
+                                            <code>onRelease</code>
+                                            <div style="font-size: 0.9rem; margin-top: 4px;">
+                                                <span class="lang-ko">완전히 종료 (Destroy)</span>
+                                                <span class="lang-en">Fully destroyed (Destroy)</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <p style="font-size: 0.8rem; color: #888; margin-top: 10px; font-style: italic;">
+                                * <span class="lang-ko">표시된 항목은 현재 구현이 불완전하거나 실험적인 기능입니다.</span>
+                                <span class="lang-en">Marked items are currently incomplete or experimental.</span>
+                            </p>
+
+                            <h3 style="margin-top: 20px;">Data Binding & Intent</h3>
+                            <p>
+                                <span class="lang-ko"><b>Active Struct</b> 시스템이 <code>data-bind-*</code> 속성을 통해 데이터를 UI에 자동 바인딩합니다.</span>
+                                <span class="lang-en">The <b>Active Struct</b> system automatically binds data to the UI via <code>data-bind-*</code> attributes.</span>
+                            </p>
+                            <ul style="list-style: disc; margin-left: 20px;">
+                                <li>
+                                    <b>Automatic</b>: 
+                                    <span class="lang-ko"><code>intentData</code>가 변경되면 자동으로 반영됩니다.</span>
+                                    <span class="lang-en">UI updates automatically when <code>intentData</code> changes.</span>
+                                </li>
+                                <li>
+                                    <b>Optimization</b>: 
+                                    <span class="lang-ko">여러 값을 한 번에 변경할 때는 <code>handle.apply(data)</code>를 사용하여 불필요한 오버헤드를 줄이세요.</span>
+                                    <span class="lang-en">Use <code>handle.apply(data)</code> when updating multiple values to prevent unnecessary overhead.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- 4. UI & Utils -->
+                        <div class="step_card" style="margin-bottom: 30px;">
+                            <h2>
+                                <span class="lang-ko">UI/UX & 유틸리티</span>
+                                <span class="lang-en">UI/UX & Utilities</span>
+                            </h2>
+                            <ul style="list-style: disc; margin-left: 20px;">
+                                <li style="margin-bottom: 8px;">
+                                    <b>UI Modes</b>: 
+                                    <span class="lang-ko"><code>vfv_scroll</code> (기본), <code>sv_scroll</code> 등 다양한 스크롤 및 뷰포트 모드 지원.</span>
+                                    <span class="lang-en">Supports various scroll/viewport modes like <code>vfv_scroll</code> (default), <code>sv_scroll</code>, etc.</span>
+                                </li>
+                                <li style="margin-bottom: 8px;">
+                                    <b>Dialogs</b>: 
+                                    <span class="lang-ko"><code>estreAlert</code>, <code>estreConfirm</code>, <code>estreToast</code> 등 비차단(Non-blocking) 네이티브 스타일 다이얼로그.</span>
+                                    <span class="lang-en">Non-blocking native-style dialogs like <code>estreAlert</code>, <code>estreConfirm</code>, <code>estreToast</code>.</span>
+                                </li>
+                                <li style="margin-bottom: 8px;">
+                                    <b>Local Style</b>: 
+                                    <span class="lang-ko"><code>&lt;local-style&gt;</code> 태그와 <code>##</code> 선택자를 사용하여 컴포넌트 단위 스타일 스코핑 지원.</span>
+                                    <span class="lang-en">Supports scoped styling via <code>&lt;local-style&gt;</code> tag and <code>##</code> selector.</span>
+                                </li>
+                                <li style="margin-bottom: 8px;">
+                                    <b>Storage System</b>: 
+                                    <span class="lang-ko">Local/Session Storage와 호환되는 <b>Async Storage</b> 및 자동 직렬화를 지원하는 <b>Codded Storage</b> 제공. (Native 앱 연동 시 Native Storage 맵핑)</span>
+                                    <span class="lang-en">Provides <b>Async Storage</b> (compatible with Local/Session) and <b>Codded Storage</b> for auto-serialization. (Maps to Native Storage in app mode)</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- 5. Migration Guide -->
+                        <div class="step_card" style="margin-bottom: 30px;">
+                            <h2>
+                                <span class="lang-ko">마이그레이션 가이드</span>
+                                <span class="lang-en">Migration Guide</span>
+                            </h2>
+                            
+                            <h3 style="margin-top: 20px;">
+                                <span class="lang-ko">Classic Web (ASP/PHP/JSP) &rarr; EstreUI</span>
+                                <span class="lang-en">Classic Web (ASP/PHP/JSP) &rarr; EstreUI</span>
+                            </h3>
+                            <ul style="list-style: disc; margin-left: 20px;">
+                                <li style="margin-bottom: 10px;">
+                                    <b>SSR Hybrid</b>: 
+                                    <span class="lang-ko">초기 로드(`staticDoc`)에는 SSR을 사용할 수 있지만, 이후에는 <b>SPA 경험</b>을 위해 AJAX/Fetch를 사용해야 합니다.</span>
+                                    <span class="lang-en">You can use SSR for the initial load (`staticDoc`), but use AJAX/Fetch afterwards to maintain the <b>SPA experience</b>.</span>
+                                </li>
+                                <li style="margin-bottom: 10px;">
+                                    <b>AJAX Form</b>: 
+                                    <span class="lang-ko">페이지 새로고침(`form submit`) 대신 <code>fetch</code>와 EstreUI의 페이지 전환을 사용하세요.</span>
+                                    <span class="lang-en">Replace full page reloads (`form submit`) with <code>fetch</code> calls and EstreUI page transitions.</span>
+                                </li>
+                            </ul>
+
+                            <h3 style="margin-top: 20px;">
+                                <span class="lang-ko">Native App &rarr; EstreUI</span>
+                                <span class="lang-en">Native App &rarr; EstreUI</span>
+                            </h3>
+                            <ul style="list-style: disc; margin-left: 20px;">
+                                <li style="margin-bottom: 10px;">
+                                    <b>WVCA4EUI Wrapper</b>: 
+                                    <span class="lang-ko">Flutter 기반 래퍼를 사용하여 앱 스토어에 배포하세요. PWA 캐싱과 웹뷰 헬퍼를 제공합니다.</span>
+                                    <span class="lang-en">Use the Flutter-based wrapper to deploy to app stores. It handles PWA caching and WebView helpers.</span>
+                                    <a href="https://github.com/SoliEstre/WebViewContainerApplication-for-EstreUI.js" target="_blank" style="display:inline-block; margin-top: 5px; color: #667eea; text-decoration: none; font-size: 0.9rem;">
+                                        <span class="lang-ko">GitHub 저장소 방문 &rarr;</span>
+                                        <span class="lang-en">Visit GitHub Repository &rarr;</span>
+                                    </a>
+                                </li>
+                                <li style="margin-bottom: 10px;">
+                                    <b>Bridge Handler</b>: 
+                                    <span class="lang-ko">JS &harr; Native 통신을 지원하여 네이티브 기능을 호출할 수 있습니다.</span>
+                                    <span class="lang-en">Supports JS &harr; Native bridging to call native functions.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- 6. Development Tips -->
+                        <div class="step_card" style="margin-bottom: 30px; border-left: 4px solid #FF5252; padding-left: 15px;">
+                            <h2>
+                                <span class="lang-ko">개발 시 주의사항</span>
+                                <span class="lang-en">Development Cautions</span>
+                            </h2>
+                            
+                            <h3 style="margin-top: 15px; color: #D32F2F;">iOS Memory Limits</h3>
+                            <p>
+                                <span class="lang-ko">iOS는 웹앱에 엄격한 메모리 제한이 있습니다. 이는 주로 <b>페이지 로드 시점</b>에 발생하며, <code>onLoad</code> 이후에는 영향이 적습니다.</span>
+                                <span class="lang-en">iOS has strict memory limits for web apps, mainly during <b>initial load</b> (less impact after <code>onLoad</code>).</span>
+                            </p>
+                            <ul style="list-style: disc; margin-left: 20px; margin-top: 10px;">
+                                <li>
+                                    <span class="lang-ko">필요한 CSS만 분리하여 로드하거나 <b>Lazy Loading</b> <code>&lt;meta link="lazy"&gt;</code>을 사용하세요.</span>
+                                    <span class="lang-en">Split CSS or use <b>Lazy Loading</b> <code>&lt;meta link="lazy"&gt;</code>.</span>
+                                </li>
+                                <li>
+                                    <span class="lang-ko">무거운 폰트 사용을 자제하고 스크립트에 <code>defer</code>를 사용하세요.</span>
+                                    <span class="lang-en">Avoid heavy fonts and use <code>defer</code> for scripts.</span>
+                                </li>
+                            </ul>
+                        </div>
+
                     </div>
                 </article>
             </div>
@@ -132,7 +498,7 @@
         <!-- Demo Section (Placeholder) -->
         <section id="demo" class="root_tab_content" data-static="1">
             <div class="container vfv_scroll" data-container-id="root" data-static="1" data-title="Demo">
-                <article id="main" class="constraint" data-article-id="main" data-static="1" data-title="Demo">
+                <article id="main" class="fwvs" data-article-id="main" data-static="1" data-title="Demo">
                     <div style="padding: 20px;">
                         <h2>
                             <span class="lang-ko">기능 데모</span>
@@ -170,7 +536,7 @@
         <!-- Links Section (Placeholder) -->
         <section id="links" class="root_tab_content" data-static="1">
             <div class="container vfv_scroll" data-container-id="root" data-static="1" data-title="Links">
-                <article id="main" class="constraint" data-article-id="main" data-static="1" data-title="Links">
+                <article id="main" class="fwvs" data-article-id="main" data-static="1" data-title="Links">
                     <div style="padding: 20px;">
                         <h2>
                             <span class="lang-ko">관련 링크</span>
